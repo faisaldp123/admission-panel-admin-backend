@@ -8,7 +8,22 @@ dotenv.config(); // Load environment variables
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://admission-admin-panel-nextjs.vercel.app',
+];
+
+app.use(cors({
+  origin: function(origin, callback) {
+    // allow requests with no origin (like Postman or curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      return callback(new Error('CORS policy does not allow this origin'), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true,
+}));
 
 app.use(bodyParser.json());
 
