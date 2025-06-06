@@ -8,18 +8,17 @@ dotenv.config(); // Load environment variables
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://admission-admin-panel-nextjs.vercel.app.com'],
+  credentials: true,
+}));
 
 app.use(bodyParser.json());
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 5000 // Increase the timeout to 5 seconds or more
-  })
-  .then(() => console.log('MongoDB connected'))
-  .catch((err) => console.error('MongoDB connection error:', err));
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // Routes
 const formRoutes = require('./routes/form');
