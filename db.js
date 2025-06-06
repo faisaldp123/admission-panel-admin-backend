@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
-const mongoURL = 'mongodb://localhost:27017/admission-panel'
+dotenv.config(); // Load environment variables
 
-mongoose.connect(mongoURL, {
+
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
