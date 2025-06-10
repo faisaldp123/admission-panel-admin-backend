@@ -10,8 +10,8 @@ const app = express();
 
 // ✅ CORS FIX (supports both localhost and deployed frontend)
 const allowedOrigins = [
-  'http://localhost:3000',
   'http://localhost:3001',
+  'http://localhost:3002',
   'https://admission-admin-panel-nextjs.vercel.app',
 ];
 
