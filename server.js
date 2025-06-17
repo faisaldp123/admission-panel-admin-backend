@@ -29,6 +29,9 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
 // ✅ Ensure preflight OPTIONS requests are handled
 app.options('*', cors());
 app.use(express.json());
