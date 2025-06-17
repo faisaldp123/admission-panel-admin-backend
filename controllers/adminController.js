@@ -32,3 +32,18 @@ exports.adminLogout = (req, res) => {
   res.clearCookie('admin_token');
   return res.status(200).json({ success: true, message: 'Logged out successfully' });
 };
+
+exports.checkAdminSession = (req, res) => {
+  const token = req.cookies.admin_token;
+
+  if (!token) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+
+  // Optionally verify token here (e.g., with JWT or simple check)
+  if (token === 'your-secret') {
+    return res.status(200).json({ message: 'Authenticated' });
+  } else {
+    return res.status(401).json({ message: 'Invalid token' });
+  }
+};
