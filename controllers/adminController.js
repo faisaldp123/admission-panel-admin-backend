@@ -9,10 +9,9 @@ exports.adminLogin = (req, res) => {
     // ✅ Set the admin_token cookie
     res.cookie('admin_token', 'your-secret', {
   httpOnly: true,
-  secure: process.env.NODE_ENV === 'production',
-  sameSite: 'lax', // more compatible
-  maxAge: 7 * 24 * 60 * 60 * 1000,
-  domain: 'https://admission-admin-panel-nextjs.vercel.app', // ✅ matches your frontend prod domain
+  secure: true, // ✅ MUST be true in production (Render uses HTTPS)
+  sameSite: 'None', // ✅ allow cross-site cookie (between Vercel and Render)
+  maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
 });
 
     return res.status(200).json({ success: true, message: "Admin login successful" });
