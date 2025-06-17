@@ -72,13 +72,27 @@ router.get('/', async (req, res) => {
 router.put('/:id', upload.single('bannerFile'), async (req, res) => {
   try {
       const { id } = req.params;
-      const updateData = req.body;
 
-      // If image is uploaded
+      const updateData = {
+          name: req.body.name,
+          course: req.body.course,
+          specialization: req.body.specialization,
+          fee: req.body.fee,
+          ranking: req.body.ranking,
+          slug: req.body.slug,
+          title: req.body.title,
+          location: req.body.location,
+          entrance: req.body.entrance,
+          course_duration: req.body.course_duration,
+      };
+
+      // Handle banner image update if new file is selected
       if (req.file) {
-          // Optional: Upload to Cloudinary or store locally
-          const bannerUrl = `uploads/${req.file.originalname}`; // Replace with actual Cloudinary URL if needed
-          updateData.banner = bannerUrl;
+          const result = await cloudinary.uploader.upload(req.file.path, {
+              folder: 'universities/banners'
+          });
+          updateData.banner = result.secure_url;
+          fs.unlinkSync(req.file.path);
       }
 
       const updatedUniversity = await Universities.findByIdAndUpdate(id, updateData, {
