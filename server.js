@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const adminRoutes = require('./routes/admin')
 
 dotenv.config();
 
@@ -30,8 +31,8 @@ app.use(cors({
 
 // ✅ Ensure preflight OPTIONS requests are handled
 app.options('*', cors());
-
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // ✅ MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
@@ -52,6 +53,7 @@ app.use('/form', formRoutes);
 app.use('/person', personRoutes);
 app.use('/universities', universityRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
 
 // ✅ Start server
 const PORT = process.env.PORT || 10000;
