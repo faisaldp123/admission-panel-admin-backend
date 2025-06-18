@@ -8,8 +8,8 @@ exports.adminLogin = (req, res) => {
 
     res.cookie('admin_token', token, {
   httpOnly: true,
-  secure: true, // Required in production for HTTPS
-  sameSite: 'none', // Important for cross-site cookie
+  secure: true, // must be true on production (HTTPS)
+  sameSite: 'None', // 'None' required for cross-site
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
 });
 
