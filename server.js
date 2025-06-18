@@ -25,7 +25,7 @@ app.use(cors({
       callback(new Error('CORS Not Allowed'));
     }
   },
-  credentials: true, // IMPORTANT for cookies
+  credentials: true, // ✅ Very Important
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
