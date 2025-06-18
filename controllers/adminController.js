@@ -7,11 +7,11 @@ exports.adminLogin = (req, res) => {
     const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
     res.cookie('admin_token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: '/',
-    });
+  httpOnly: true,
+  secure: true, // Required in production for HTTPS
+  sameSite: 'none', // Important for cross-site cookie
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+});
 
     return res.status(200).json({ success: true, message: 'Login success' });
   }
