@@ -6,6 +6,7 @@ const cors = require('cors');
 const adminRoutes = require('./routes/admin')
 
 dotenv.config();
+require('dotenv').config();
 
 const app = express();
 
