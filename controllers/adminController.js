@@ -26,7 +26,7 @@ exports.checkAdminAuth = (req, res) => {
 
   try {
     jwt.verify(token, process.env.JWT_SECRET);
-    return res.json({ success: true });
+    return res.status(200).json({ success: true });
   } catch (err) {
     return res.status(401).json({ success: false });
   }
