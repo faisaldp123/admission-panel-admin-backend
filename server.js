@@ -12,25 +12,22 @@ const app = express();
 
 // ✅ CORS FIX (supports both localhost and deployed frontend)
 const allowedOrigins = [
-  'http://localhost:3001',
-  'http://localhost:3002',
-  'https://admission-admin-panel-nextjs.vercel.app',
+  'http://localhost:3001', // local frontend
+  'https://admission-admin-panel-nextjs.vercel.app', // Vercel frontend
 ];
 
-app.use(cors({
-  origin: function (origin, callback) {
-  console.log('Incoming Origin:', origin); // ADD THIS
-
-  if (!origin || allowedOrigins.includes(origin)) {
-    callback(null, true);
-  } else {
-    callback(new Error('CORS Not Allowed'));
-  }
-},
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('CORS Not Allowed'));
+      }
+    },
+    credentials: true,
+  })
+);
 
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
