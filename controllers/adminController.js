@@ -2,14 +2,14 @@ const jwt = require('jsonwebtoken');
 
 exports.adminLogin = (req, res) => {
   const { email, password } = req.body;
-
+console.log(email, password)
   if (email === 'faisal.dpathshala@gmail.com' && password === 'F@isal8646') {
     const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
     res.cookie('admin_token', token, {
   httpOnly: true,
-  secure: true, // ✅ needed for HTTPS (Render)
-  sameSite: 'None', // ✅ needed for cross-origin
+  secure: process.env.NODE_ENV === 'production', // Only true on production
+  sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
   maxAge: 7 * 24 * 60 * 60 * 1000,
 });
 
@@ -40,6 +40,8 @@ exports.adminLogout = (req, res) => {
 // ✅ Also verify token properly here
 exports.checkAdminSession = (req, res) => {
   const token = req.cookies.admin_token;
+  console.log(req.cookies.admin_token)
+  // console.log()
   if (!token) return res.status(401).json({ message: 'Unauthorized' });
 
   try {
