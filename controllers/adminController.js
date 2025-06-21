@@ -33,7 +33,13 @@ exports.checkAdminAuth = (req, res) => {
 };
 
 exports.adminLogout = (req, res) => {
-  res.clearCookie('admin_token');
+  res.clearCookie('admin_token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // must match login
+    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+    path: '/', // ✅ important to ensure all paths are covered
+  });
+
   return res.status(200).json({ success: true, message: 'Logged out successfully' });
 };
 
