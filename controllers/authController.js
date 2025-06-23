@@ -88,3 +88,14 @@ exports.loginUser = async (req, res) => {
     res.status(500).json({ msg: 'Server error. Please try again later.' });
   }
 };
+
+// Get all users (for Admin only)
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({}, '-password').sort({ createdAt: -1 }); // exclude password
+    res.status(200).json(users);
+  } catch (err) {
+    console.error('Error fetching users:', err);
+    res.status(500).json({ msg: 'Server error while fetching users' });
+  }
+};
