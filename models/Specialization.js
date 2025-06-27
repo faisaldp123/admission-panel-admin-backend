@@ -9,6 +9,19 @@ const SpecializationSchema = new mongoose.Schema({
     image2: { type: String },
     image3: { type: String },
 
+    metaTitle: { type: String },
+metaDescription: { type: String },
+canonicalUrl: { type: String },
+
+ogTitle: { type: String },
+ogDescription: { type: String },
+ogImage: { type: String },
+
+twitterCard: { type: String },
+twitterTitle: { type: String },
+twitterDescription: { type: String },
+twitterImage: { type: String },
+
     contentHtml: { type:String, required: true},
 }, {timestamps: true});
 
