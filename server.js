@@ -48,6 +48,8 @@ const formRoutes = require('./routes/form');
 const personRoutes = require('./routes/person');
 const universityRoutes = require('./routes/universities');
 const authRoutes = require('./routes/auth');
+const specializationRoutes = require('./routes/specialization')
+const courseRoutes = require('./routes/course');
 
 app.get('/', (req, res) => {
   res.send('Welcome to Admission Panel backend');
@@ -58,6 +60,8 @@ app.use('/person', personRoutes);
 app.use('/universities', universityRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/specialization', specializationRoutes)
+app.use('/api/course', courseRoutes);
 
 // ✅ Start server
 const PORT = process.env.PORT || 10000;
