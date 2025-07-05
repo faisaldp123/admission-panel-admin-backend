@@ -48,6 +48,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const spec = await Specialization.findById(req.params.id);
+    console.log('Returning Specialization:', spec);
     if (!spec) return res.status(404).json({ error: 'Specialization not found' });
     res.json(spec);
   } catch (err) {
